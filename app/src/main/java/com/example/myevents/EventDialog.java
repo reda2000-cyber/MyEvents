@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import domain.Event;
 
@@ -42,22 +44,24 @@ public class EventDialog extends AppCompatDialogFragment{
 
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.name_event_dialog,null);
+
+        name= view.findViewById(R.id.name);
         builder.setView(view);
         builder.setTitle("Event Name");
+
         builder.setPositiveButton("Create Event", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                if(name.getText().toString() == null || name.getText().toString() =="" ){
+                if(name.getText().toString() == null || name.getText().toString().trim().isEmpty() ){
 
-                    eventDialogListener.error("Invalide Event name");
+                    Toast.makeText(requireContext(), "You did not enter a name",Toast.LENGTH_SHORT).show();
+                    return;
                 }else {
 
                     event.setName(name.getText().toString());
 
                     final Calendar c = Calendar.getInstance();
-                    int mHour = c.get(Calendar.HOUR_OF_DAY);
-                    int mMinute = c.get(Calendar.MINUTE);
                     int mYear = c.get(Calendar.YEAR);
                     int mMonth = c.get(Calendar.MONTH);
                     int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -69,6 +73,7 @@ public class EventDialog extends AppCompatDialogFragment{
                                 public void onTimeSet(TimePicker view, int hourOfDay,
                                                       int minute) {
 
+
                                     dateEvent.setHours(hourOfDay);
                                     dateEvent.setMinutes(minute);
                                     dateEvent.setSeconds(0);
@@ -78,7 +83,8 @@ public class EventDialog extends AppCompatDialogFragment{
                                     event.setDateCreate(new Date());
                                     eventDialogListener.apply(event);
                                 }
-                            }, mHour, mMinute, false);
+                            }, 00, 00, true);
+
                     timePickerDialog.show();
 
 
@@ -95,6 +101,7 @@ public class EventDialog extends AppCompatDialogFragment{
 
                                 }
                             }, mYear, mMonth, mDay);
+                    datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
                     datePickerDialog.show();
                 }
 
@@ -106,7 +113,6 @@ public class EventDialog extends AppCompatDialogFragment{
 
             }
         });
-        name= view.findViewById(R.id.name);
 
         return builder.create();
     }
@@ -125,7 +131,6 @@ public class EventDialog extends AppCompatDialogFragment{
 
     public interface EventDialogListener {
         void apply(Event event);
-        void error(String msg);
     }
 
 }

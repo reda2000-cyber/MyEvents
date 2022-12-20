@@ -97,7 +97,7 @@ public class MainActivity3 extends AppCompatActivity implements EventDialog.Even
     }
 
     public void sendOnChannel() {
-        NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification("CountDown", "CountDown for your event : " + event.getName()+" is finished !");
+        NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification("CountDown", "CountDown for your event : " + event.getName()+" has finished !");
         mNotificationHelper.getManager().notify(1, nb.build());
     }
 
@@ -142,7 +142,5 @@ public class MainActivity3 extends AppCompatActivity implements EventDialog.Even
         }.start();
     }
 
-    @Override
-    public void error(String msg){
-    }
+
 }

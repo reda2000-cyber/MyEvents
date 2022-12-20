@@ -175,7 +175,7 @@
             android:layout_marginEnd="10dp"
             android:textColor="#FFF59D"
             android:textSize="16sp"
-            tools:text="14/07"
+            tools:text="00/00"
             android:focusable="false"
             android:focusableInTouchMode="false"/>
 

@@ -95,8 +95,5 @@ public class MainActivity extends AppCompatActivity implements EventDialog.Event
 
     }
 
-    @Override
-    public void error(String msg){
-        Toast.makeText(MainActivity.this, msg , Toast.LENGTH_SHORT).show();
-    }
+
 }

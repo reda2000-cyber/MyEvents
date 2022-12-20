@@ -69,6 +69,7 @@ public class CustomBaseAdapter extends ArrayAdapter<Event> {
             @Override
             public void onFinish() {
 
+
             }
         }.start();
 
